@@ -17,7 +17,7 @@ enum class MediaType {
     companion object {
         private val imageExtensions = listOf("arw", "heic", "jpg", "jpeg", "png", "gif")
         private val videoExtensions = listOf("mp4")
-        private val otherExtensions = listOf("lrv", "thm")
+        private val otherExtensions = listOf("lrv", "thm", "xml")
 
         fun type(fileName: String): MediaType {
             val ext = FileExt.extension(fileName)

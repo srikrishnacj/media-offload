@@ -1,21 +1,22 @@
 package com.abc.cj.media_offload
 
-import com.abc.cj.media_offload.config.props.Configurations
+import com.abc.cj.media_offload.tasks.CleanupTask
 import com.abc.cj.media_offload.tasks.MediaFinderTask
+import com.abc.cj.media_offload.tasks.MoveTask
 import java.nio.file.Path
 
 class Workflow(
     private val dryRun: Boolean,
-    private val configurations: Configurations,
+    private val path: Path,
 ){
     fun run() {
-        scanAllFiles()
-    }
+        val task = MediaFinderTask(path = path)
+        val mediaFiles = task.find()
 
-    private fun scanAllFiles(){
-        val dir = "/Volumes/xD/TEMP"
+        val moveTask = MoveTask(path = path, mediaFiles = mediaFiles)
+        moveTask.move()
 
-        val task = MediaFinderTask(Path.of(dir))
-        task.find()
+        val cleanupTask = CleanupTask(path = path, mediaFiles = mediaFiles)
+        cleanupTask.cleanup()
     }
 }

@@ -18,21 +18,31 @@ repositories {
 	mavenCentral()
 }
 
+
+
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("tools.jackson.module:jackson-module-kotlin")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
-	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testCompileOnly("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testAnnotationProcessor("org.projectlombok:lombok")
 
+	implementation("org.springframework.shell:spring-shell-starter")
 
+	implementation("com.drewnoakes:metadata-extractor:2.19.0")
+}
 
+extra["springShellVersion"] = "4.0.2"
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.shell:spring-shell-dependencies:${property("springShellVersion")}")
+	}
 }
 
 kotlin {
